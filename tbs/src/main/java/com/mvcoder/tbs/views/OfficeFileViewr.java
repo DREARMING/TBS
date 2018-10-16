@@ -1,4 +1,4 @@
-package com.mvcoder.tbsdemo.views;
+package com.mvcoder.tbs.views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -113,7 +113,7 @@ public class OfficeFileViewr extends FrameLayout implements TbsReaderView.Reader
 
     private void initView() {
         tbsReaderView = new TbsReaderView(getContext(), this);
-        addView(tbsReaderView, new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+        addView(tbsReaderView, new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
     }
 
     @Override

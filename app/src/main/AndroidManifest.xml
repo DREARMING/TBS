@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:name=".TBSApplication"
         android:allowBackup="true"
@@ -20,10 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DisplayFileActivity"
-            android:theme="@style/MyStyle">
-        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.mvcoder.tbsdemo.fileprovider"
@@ -33,6 +34,22 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
+        <activity
+            android:name=".SimpleBrowserActivity"
+            android:theme="@style/MyStyle" />
+
+        <activity android:name="com.mvcoder.tbs.TBSBrowserActivity"
+            android:process=":tbs"
+            android:theme="@style/style_tbs_no_title"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+        </activity>
+
+        <activity
+            android:name="com.mvcoder.tbs.DisplayFileActivity"
+            android:theme="@style/MyStyle" />
+
     </application>
 
 </manifest>

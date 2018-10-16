@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".DisplayFileActivity">
 
-    <com.mvcoder.tbsdemo.views.OfficeFileViewr
+    <com.mvcoder.tbs.views.OfficeFileViewr
         android:id="@+id/office_viewer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.mvcoder.tbsdemo.views.OfficeFileViewr>
+    </com.mvcoder.tbs.views.OfficeFileViewr>
 
 </android.support.constraint.ConstraintLayout>

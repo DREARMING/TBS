@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SimpleBrowserActivity">
+
+    <FrameLayout
+        android:id="@+id/browser_fl_webview_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/load_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <com.mingle.widget.LoadingView
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.mingle.widget.LoadingView>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/errorPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/errorPage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/main_load_failure" />
+
+        <Button
+            android:id="@+id/reloadBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/errorPage_text"
+            android:layout_alignRight="@id/errorPage_text"
+            android:layout_below="@id/errorPage_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/main_bt_reload_bg"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:text="刷新加载" />
+
+    </RelativeLayout>
+
+</FrameLayout>

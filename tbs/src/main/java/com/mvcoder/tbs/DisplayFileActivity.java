@@ -1,9 +1,9 @@
-package com.mvcoder.tbsdemo;
+package com.mvcoder.tbs;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.mvcoder.tbsdemo.views.OfficeFileViewr;
+import com.mvcoder.tbs.views.OfficeFileViewr;
 
 import java.io.FileNotFoundException;
 

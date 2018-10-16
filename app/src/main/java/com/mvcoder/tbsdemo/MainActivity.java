@@ -17,8 +17,9 @@ import android.widget.Button;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.mvcoder.tbs.DisplayFileActivity;
+import com.mvcoder.tbs.TBSBrowserActivity;
 import com.mvcoder.tbsdemo.utils.OfficeUtils;
-import com.tencent.smtt.sdk.QbSdk;
 
 import java.io.File;
 import java.util.List;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btDocX;
     private Button btTxt;
     private Button btPDF;
+    private Button btWeb;
 
     private boolean hasPermission = false;
 
@@ -46,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {
             hasPermission = true;
         }
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btPPtx = findViewById(R.id.bt_pptx);
         btTxt = findViewById(R.id.bt_tx);
         btPDF = findViewById(R.id.bt_pdf);
+        btWeb = findViewById(R.id.bt_browser);
         btDoc.setOnClickListener(this);
         btDocX.setOnClickListener(this);
         btXls.setOnClickListener(this);
@@ -68,10 +72,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btPPtx.setOnClickListener(this);
         btTxt.setOnClickListener(this);
         btPDF.setOnClickListener(this);
+        btWeb.setOnClickListener(this);
+    }
+
+    private void startBrowserActivity() {
+        Intent intent = new Intent(this, TBSBrowserActivity.class);
+        intent.putExtra(TBSBrowserActivity.KEY_URL, "http://www.baidu.com");
+        startActivity(intent);
     }
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.bt_browser) {
+            startBrowserActivity();
+            return;
+        }
         if (!hasPermission) {
             LogUtils.d("没有sd卡读写权限");
             return;
@@ -116,23 +131,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ToastUtils.showShort("不支持X5内核");
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             Uri uri = null;
-            if(Build.VERSION_CODES.N > Build.VERSION.SDK_INT) {
+            if (Build.VERSION_CODES.N > Build.VERSION.SDK_INT) {
                 uri = Uri.fromFile(showFile);
-            }else{
-                uri = FileProvider.getUriForFile(this,"com.mvcoder.tbsdemo.fileprovider",showFile);
-                if(uri != null) {
+            } else {
+                uri = FileProvider.getUriForFile(this, "com.mvcoder.tbsdemo.fileprovider", showFile);
+                if (uri != null) {
                     LogUtils.e("uri : " + uri.toString());
-                }else{
+                } else {
                     LogUtils.e("uri == null");
                 }
             }
             intent.setDataAndType(uri, OfficeUtils.getMineTypeBySuffix(fileName.substring(2)));
             List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-            if(list != null && list.size() > 0) {
+            if (list != null && list.size() > 0) {
                 startActivity(intent);
-            }else{
+            } else {
                 LogUtils.e("no  resovle activity");
             }
         }
@@ -143,8 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
-            if (grantResults != null && grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults != null && grantResults.length > 1) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     hasPermission = true;
                 }
             }
@@ -154,13 +169,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        printLog();
-    }
-
-    private void printLog() {
-
-        LogUtils.d("QbSdk.canLoadX5(this) : " + QbSdk.canLoadX5(this));
-        LogUtils.d("QbSdk.canLoadX5FirstTimeThirdApp : " + QbSdk.canLoadX5FirstTimeThirdApp(this));
-        LogUtils.d("QbSdk.getTBSInstalling(this) : " + QbSdk.getTBSInstalling());
     }
 }

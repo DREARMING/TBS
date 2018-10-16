@@ -56,4 +56,11 @@
         android:text="打开pdf文档"
         />
 
+    <Button
+        android:id="@+id/bt_browser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="看网页"
+        />
+
 </LinearLayout>
