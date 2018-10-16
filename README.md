@@ -17,6 +17,6 @@ To get a Git project into your build:
 
 ```
 	dependencies {
-	        implementation 'com.github.DREARMING:tbs:1.0.0'
+	        implementation 'com.github.DREARMING:TBS:1.0.0'
 	}
 ```
