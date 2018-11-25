@@ -20,7 +20,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,7 +37,9 @@
 
         <activity
             android:name=".SimpleBrowserActivity"
-            android:theme="@style/MyStyle" />
+            android:theme="@style/MyStyle" >
+
+        </activity>
 
         <activity android:name="com.mvcoder.tbs.TBSBrowserActivity"
             android:process=":tbs"

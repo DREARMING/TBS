@@ -39,5 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.blankj:utilcode:1.10.0'
     implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
-    implementation project(':tbs')
+    implementation 'com.github.DREARMING:TBS:1.0.0'
 }
